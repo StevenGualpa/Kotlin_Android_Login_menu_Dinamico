@@ -53,28 +53,39 @@ class MainActivity : AppCompatActivity() {
 
                 //Contador
                 var index=0
+                var index2=0
+
                 //Cantidad de Elementos
                 var n=str.length()
                 //Variables auxiliares  que usaremos
                 var list_administrador = arrayListOf("Inicio", "Camara", "Microfono", "Materias","Cursos", "Salir")
                 var list_estudiante = arrayListOf("Inicio","Materias", "Cursos", "Salir")
                 var list_profesor = arrayListOf("Inicio", "Camara", "Microfono","Materias","Horario","Cursos", "Salir")
-
+                var list_items = arrayListOf<String>()
                 var usuario=""
                 var password=""
                 var rol=""
 
                 //Extraemos Elementos de eiquetas
-                var elemento: JSONObject =str.getJSONObject(index)
+               // var elemento: JSONObject =str.getJSONObject(index)
                 //Toast.makeText(this, elemento.toString(), Toast.LENGTH_SHORT).show()
+
                 while (index<n)
                 {
                     var elemento: JSONObject =str.getJSONObject(index)
+
 
                     usuario=elemento.getString("username")
                     password=elemento.getString("password")
                     rol=elemento.getString("role")
                     if (usuario==parm1&&password==parm2) {
+                        //SubJason
+                        var str2: JSONArray = JSONArray(elemento.getString("items"))
+                        while(index2<str2.length()){
+                            var elemento2: JSONObject =str2.getJSONObject(index2)
+                            list_items.add(elemento2.getString("itemname"))
+                            index2++
+                        }
                         index=1000
                     }
                     else
@@ -84,13 +95,13 @@ class MainActivity : AppCompatActivity() {
                 if(index==1000){
                     MensajeLargo("Bienvenido: $parm1")
                     if(rol=="Administrador"){
-                        InvocaMenu(rol,password,list_administrador)
+                        InvocaMenu(rol,password,list_items)
                     }
                     else if(rol=="Estudiante"){
-                        InvocaMenu(rol,password,list_estudiante)
+                        InvocaMenu(rol,password,list_items)
                     }
                     else if(rol=="Docente"){
-                        InvocaMenu(rol,password,list_profesor)
+                        InvocaMenu(rol,password,list_items)
                     }
                 }
                 else{
