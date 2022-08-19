@@ -32,7 +32,9 @@ class MainActivity2 : AppCompatActivity(),NavigationView.OnNavigationItemSelecte
 
         var menufinal = navigationView.menu
         val usuario = navigationView.getHeaderView(0).findViewById<TextView>(R.id.txtUsuario)
+        val icono_ = navigationView.getHeaderView(0).findViewById<CircleImageView>(R.id.icon_image)
         val bundle = this.getIntent().getExtras()
+        Picasso.get().load(bundle?.getString("icon")).into(icono_)
         usuario.text=bundle?.getString("user")
         if (bundle != null) {
 

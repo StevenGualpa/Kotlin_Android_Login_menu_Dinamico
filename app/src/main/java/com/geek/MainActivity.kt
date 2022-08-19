@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 var usuario=""
                 var password=""
                 var rol=""
-
+                var icon=""
                 //Extraemos Elementos de eiquetas
                // var elemento: JSONObject =str.getJSONObject(index)
                 //Toast.makeText(this, elemento.toString(), Toast.LENGTH_SHORT).show()
@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                     usuario=elemento.getString("username")
                     password=elemento.getString("password")
                     rol=elemento.getString("role")
+                    icon=elemento.getString("icon")
                     if (usuario==parm1&&password==parm2) {
                         //SubJason
                         var str2: JSONArray = JSONArray(elemento.getString("items"))
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 if(index==1000){
                     MensajeLargo("Bienvenido: $parm1")
+                    /*
                     if(rol=="Administrador"){
                         InvocaMenu(rol,password,list_items)
                     }
@@ -103,6 +105,9 @@ class MainActivity : AppCompatActivity() {
                     else if(rol=="Docente"){
                         InvocaMenu(rol,password,list_items)
                     }
+
+                     */
+                    InvocaMenu(rol,icon,list_items)
                 }
                 else{
                     MensajeLargo("Error")
@@ -117,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity2::class.java)
         val bundle = Bundle()
         bundle.putString("user",parm1)
-        bundle.putString("avatar", parm2)
+        bundle.putString("icon", parm2)
         bundle.putStringArrayList("items", parm3)
         intent.putExtras(bundle)
         startActivity(intent)
